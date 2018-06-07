@@ -9,6 +9,7 @@ import com.google.android.things.pio.SpiDevice;
 
 import java.io.IOException;
 
+
 public class MainActivity extends AppCompatActivity {
     private static final String SPI_DEVICE_NAME = "SPI0.0";
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final byte OP_SHUTDOWN = 12;
     private static final byte OP_DISPLAYTEST = 15;
 
+    // java二进制的写法
     public static final byte[] ALIEN_FRAME_1 = new byte[]{
             (byte)0b00001000,
             (byte)0b00011000,
@@ -63,13 +65,28 @@ public class MainActivity extends AppCompatActivity {
     private SpiDevice mDevice;
     private byte[] spidata = new byte[2];
 
+    /*
+    对比SPI和I2C:
+    https://blog.csdn.net/p106786860/article/details/71076450
+    SPI总线是一种同步的串行接口(CLK),支持全双工数据传输(2条单独的信号线)，slave设备使用硬件寻址(片选引脚)
+
+    https://github.com/ThingsDeveloper/i2cdemo,
+    2C总线是一种同步的串行接口(CLK),支持半双工通信(数据都是通过一根线连接),使用I2C软件协议寻址
+
+
+    官方描述https://developer.android.google.cn/things/sdk/pio/spi
+    MODE0 - Clock signal idles low, data is transferred on the leading clock edge
+    MODE1 - Clock signal idles low, data is transferred on the trailing clock edge
+    MODE2 - Clock signal idles high, data is transferred on the leading clock edge
+    MODE3 - Clock signal idles high, data is transferred on the trailing clock edge
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         try {
-            //打开SPI接口连接
+            //打开SPI接口连接,
             PeripheralManagerService manager = new PeripheralManagerService();
             mDevice = manager.openSpiDevice(SPI_DEVICE_NAME);
 
