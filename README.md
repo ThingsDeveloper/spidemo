@@ -1,5 +1,6 @@
 # spidemo
-该项目演示了SPI接口的基本使用
+该项目演示了SPI接口的基本使用   
+代码解释  https://blog.csdn.net/p106786860/article/details/71076450
 
 ##  硬件准备
 在运行该项目之前，我们要准备如下元器件：
